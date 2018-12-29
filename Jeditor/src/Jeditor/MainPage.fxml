@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<?import org.fxmisc.richtext.CodeArea?>
+
+<SplitPane dividerPositions="0.98" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Jeditor.MainPageController">
+  <items>
+      <BorderPane fx:id="editpane" styleClass="bg" stylesheets="@myStyles.css" >
+         <center>
+             <CodeArea fx:id="codearea" />
+         </center>
+         <top>
+            <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0" spacing="16.0" stylesheets="@transparent.css"  BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="open" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openaction" prefHeight="25.0" prefWidth="81.0" stylesheets="@button.css" text="open" />
+                  <Button fx:id="saveit" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveitaction" prefHeight="25.0" prefWidth="81.0" stylesheets="@button.css" text="save it" />
+                  <Button fx:id="saveas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveasaction" prefHeight="25.0" prefWidth="81.0" stylesheets="@button.css" text="save as" />
+                  <Button fx:id="zoomout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#zoomOut" prefHeight="25.0" prefWidth="81.0" stylesheets="@button.css" text="A--[Ctrl -]" />
+                  <Button fx:id="zoomin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#zoomIn" prefHeight="25.0" prefWidth="81.0" stylesheets="@button.css" text="A++[Ctrl +]" />
+                  <Button fx:id="gentime" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#genTime" prefHeight="25.0" prefWidth="81.0" stylesheets="@button.css" text="time[Ctrl T]" />
+                  <Region maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="29.0" prefWidth="268.0" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="9.0" right="9.0" />
+               </padding>
+            </HBox>
+         </top>
+         <bottom>
+            <HBox maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="200.0" spacing="16.0" style="-fx-background-color: darkgrey;" BorderPane.alignment="CENTER">
+               <padding>
+                  <Insets left="16.0" right="16.0" />
+               </padding>
+               <children>
+                  <Button id="button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="Button" />
+                  <ComboBox fx:id="textmode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="181.0" promptText="Choose text mode">
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin></ComboBox>
+                  <Region prefHeight="25.0" prefWidth="1126.0" />
+                  <Label fx:id="viewer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="160.0" text="ax" />
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+      
+      
+      <BorderPane>
+         <left>
+            <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="766.0" prefWidth="32.0" spacing="25.0" style="-fx-background-color: purple;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" styleClass="transparent" stylesheets="@transparent.css" text="A" textFill="WHITE" />
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" styleClass="transparent" stylesheets="@transparent.css" text="B" textFill="WHITE" />
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" styleClass="transparent" stylesheets="@transparent.css" text="C" textFill="WHITE" />
+                  <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" styleClass="transparent" stylesheets="@transparent.css" text="D" textFill="WHITE" />
+               </children>
+               <padding>
+                  <Insets bottom="16.0" top="16.0" />
+               </padding></VBox>
+         </left>
+         <center>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <!--style="-fx-background-image:url('f28.png'); " 对于复杂的容器而言，并没有什么用处，还是监事使用相应的方法是更加合理的选择
+            简单的组件比如按钮可以直接加；
+            -->
+         </center>
+    </BorderPane>
+  </items>
+</SplitPane>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Jeditor.jnlp">
+  <information>
+    <title>Jeditor</title>
+    <vendor>blinderjay</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  <shortcut><desktop/></shortcut>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="lib/Jloader.jar" size="2797" download="progress" />
+    <jar href="Jeditor.jar" size="23611315" download="eager" />
+    <jar href="lib/flowless-0.6.1.jar" size="64817" download="eager" />
+    <jar href="lib/reactfx-2.0-M5.jar" size="428541" download="eager" />
+    <jar href="lib/richtextfx-0.9.2.jar" size="264539" download="eager" />
+    <jar href="lib/richtextfx-fat-0.9.2.jar" size="842391" download="eager" />
+    <jar href="lib/undofx-2.1.0.jar" size="27926" download="eager" />
+    <jar href="lib/wellbehavedfx-0.3.3.jar" size="60297" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Jeditor" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="Jeditor.Jeditor"  name="Jeditor"  preloader-class="jloader.Jloader"/>
+  <update check="always"/>
+</jnlp>
