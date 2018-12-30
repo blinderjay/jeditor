@@ -1,8 +1,0 @@
-/*
- * transparent.css - style sheet for LayoutSansTears.java JavaFX layout example
- */
-
-
-.transparent {
-    -fx-background-color: transparent;
-}

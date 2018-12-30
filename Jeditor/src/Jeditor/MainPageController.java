@@ -5,12 +5,13 @@
  */
 package Jeditor;
 
-
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.FileAlreadyExistsException;
@@ -31,20 +32,23 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.collections.FXCollections;
+import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
@@ -63,7 +67,7 @@ import org.reactfx.Subscription;
 public class MainPageController implements Initializable {
 
     @FXML
-    Button saveit, saveas, open,zoomin,zoomout,gentime;
+    Button saveit, saveas, open, zoomin, zoomout, gentime, search, replace;
     @FXML
     CodeArea codearea;
     @FXML
@@ -71,6 +75,9 @@ public class MainPageController implements Initializable {
     @FXML
     Label viewer;
     @FXML
+    TextField input;
+    @FXML
+    ChoiceBox choosebox;
 
     private Jeditor editor;
     private Stage stage;
@@ -78,20 +85,31 @@ public class MainPageController implements Initializable {
     private File file = null;
     Charset charset = Charset.forName("UTF-8");
     private static final String sampleCode = String.join("\n", new String[]{"Hellow,World"});
+    private static String tosearch = null;
+    private static int codesize = 15;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        initCodearea();
-        InputStream is = getClass().getResourceAsStream("f29.png");
-        BackgroundImage myBI = new BackgroundImage(
-                new Image(is),
-                BackgroundRepeat.REPEAT,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT,
-                BackgroundSize.DEFAULT);
-//        editpane.setBackground(new Background(myBI));
         
-//        viewer.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("f28.png"),0, 0, true, true)));
+                choosebox.setItems(FXCollections.observableArrayList(
+                "Dark",
+                new Separator(),
+                "Light")
+        );
+choosebox.setTooltip(new Tooltip("Select the language"));
+        initCodearea();
+        darkmode(new ActionEvent());
+//        InputStream is = getClass().getResourceAsStream("f29.png");
+//        BackgroundImage myBI = new BackgroundImage(
+//                new Image(is),
+//                BackgroundRepeat.REPEAT,
+//                BackgroundRepeat.NO_REPEAT,
+//                BackgroundPosition.DEFAULT,
+//                BackgroundSize.DEFAULT);
+//        editpane.setBackground(new Background(myBI));
+
+        search.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/Image/search.png"), 23, 23, true, true)));
+        replace.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/Image/replace.png"), 23, 23, true, true)));
     }
 
     public void setEditor(Jeditor edt, Stage stage) {
@@ -104,15 +122,63 @@ public class MainPageController implements Initializable {
     }
 
     private void initCodearea() {
-        codearea.setPadding(new Insets(5, 1, 2, 1));
-        codearea.setBackground(new Background(new BackgroundFill(Color.web("#93FF6C",0), CornerRadii.EMPTY, Insets.EMPTY)));
+        codearea.setPadding(new Insets(10, 8, 10, 8));
         codearea.setParagraphGraphicFactory(LineNumberFactory.get(codearea));
         Subscription cleanupWhenNoLongerNeedIt = codearea
                 .multiPlainChanges()
-                .successionEnds(Duration.ofMillis(500))
+                .successionEnds(Duration.ofMillis(256))
                 .subscribe(ignore -> codearea.setStyleSpans(0, computeHighlighting(codearea.getText())));
         codearea.replaceText(0, 0, sampleCode);
-        codearea.getStylesheets().add(getClass().getResource("java-keywords.css").toExternalForm());
+
+    }
+
+    @FXML
+    private void findsearch(ActionEvent event) {
+        tosearch = input.getText();
+        PATTERN = Pattern.compile(
+                "(?<KEYWORD>" + KEYWORD_PATTERN + ")"
+                + "|(?<PAREN>" + PAREN_PATTERN + ")"
+                + "|(?<BRACE>" + BRACE_PATTERN + ")"
+                + "|(?<BRACKET>" + BRACKET_PATTERN + ")"
+                + "|(?<SEMICOLON>" + SEMICOLON_PATTERN + ")"
+                + "|(?<STRING>" + STRING_PATTERN + ")"
+                + "|(?<COMMENT>" + COMMENT_PATTERN + ")"
+                + "|(?<TOSEARCH>" + tosearch + ")"
+        );
+        codearea.appendText("\0");
+    }
+
+    @FXML
+    private void findreplace(ActionEvent event) {
+        TextInputDialog newString = new TextInputDialog("new String");
+        newString.setTitle("Replace all the word" + input.getText());
+        newString.setHeaderText("Please input the new word that you want you want to replace the old word \"" + input.getText() + "\"");
+        Optional<String> newstring = newString.showAndWait();
+        newstring.ifPresent(value -> {
+            String context = codearea.getText();
+            codearea.clear();
+            codearea.appendText(context.replace(input.getText(), value));
+        });
+    }
+
+    @FXML
+    private void chooseMode(ActionEvent event) {
+
+
+ 
+        choosebox.getSelectionModel().selectedIndexProperty().addListener((ov, oldv, newv) -> {
+            switch (newv.intValue()) {
+                case 0:{
+                    darkmode(event);System.out.println("Dark");
+                    break;
+                }
+                case 2:{
+                    lightmode(event);System.out.println("Light");
+                    break;
+                }
+            }
+
+        });
     }
 
     @FXML
@@ -156,6 +222,7 @@ public class MainPageController implements Initializable {
                     newpath.ifPresent(pathstring -> {
                         try {
                             Files.createFile(Paths.get(pathstring));
+                            savefile(Paths.get(pathstring), codearea.getText());
                         } catch (FileAlreadyExistsException ex) {
                             Alert alert = new Alert(AlertType.ERROR);
                             alert.setTitle("File existed error");
@@ -187,26 +254,35 @@ public class MainPageController implements Initializable {
     }
 
     @FXML
-    private void zoomIn(ActionEvent event){
+    private void darkmode(ActionEvent event) {
+        codearea.setBackground(new Background(new BackgroundFill(Color.web("#232323", 0.64f), new CornerRadii(16), Insets.EMPTY)));
+        //        codearea.setStyle(" -fx-font:   bold 14px sans-serif;");
+        editpane.getStylesheets().add(getClass().getResource("DarkMode.css").toExternalForm());
+    }
+
+    @FXML
+    private void lightmode(ActionEvent event) {
+        codearea.setBackground(new Background(new BackgroundFill(Color.web("#AAAAAA", 0.64f), new CornerRadii(16), Insets.EMPTY)));
+        //        codearea.setStyle(" -fx-font:   bold 14px sans-serif;");
+        editpane.getStylesheets().add(getClass().getResource("LightMode.css").toExternalForm());
 
     }
+
     @FXML
-    private void zoomOut(ActionEvent event){
-        
+    private void genTime(ActionEvent event) {
+        codearea.appendText(
+                " [ "
+                + DateFormat.getDateTimeInstance(
+                        DateFormat.LONG, DateFormat.LONG, Locale.CHINESE).
+                        format(new java.util.Date()).toString()
+                + " ] ");
     }
+
     @FXML
-    private void genTime(ActionEvent event){
-                codearea.appendText(
-                 " [ "+
-                DateFormat.getDateTimeInstance(
-                DateFormat.LONG, DateFormat.LONG,   Locale.CHINESE).
-                format(new java.util.Date()).toString()
-                +" ] ");
-                
+    private void visitgithub(ActionEvent event) throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("https://github.com/blinderjay/jeditor"));
     }
-    
-    
-    
+
     private static StyleSpans<Collection<String>> computeHighlighting(String text) {
         Matcher matcher = PATTERN.matcher(text);
         int lastKwEnd = 0;
@@ -221,8 +297,10 @@ public class MainPageController implements Initializable {
                     : matcher.group("SEMICOLON") != null ? "semicolon"
                     : matcher.group("STRING") != null ? "string"
                     : matcher.group("COMMENT") != null ? "comment"
+                    : matcher.group("TOSEARCH") != null ? "tosearch"
                     : null;
             /* never happens */ assert styleClass != null;
+
             spansBuilder.add(Collections.emptyList(), matcher.start() - lastKwEnd);
             spansBuilder.add(Collections.singleton(styleClass), matcher.end() - matcher.start());
             lastKwEnd = matcher.end();
@@ -252,7 +330,7 @@ public class MainPageController implements Initializable {
     private static final String STRING_PATTERN = "\"([^\"\\\\]|\\\\.)*\"";
     private static final String COMMENT_PATTERN = "//[^\n]*" + "|" + "/\\*(.|\\R)*?\\*/";
 
-    private static final Pattern PATTERN = Pattern.compile(
+    private static Pattern PATTERN = Pattern.compile(
             "(?<KEYWORD>" + KEYWORD_PATTERN + ")"
             + "|(?<PAREN>" + PAREN_PATTERN + ")"
             + "|(?<BRACE>" + BRACE_PATTERN + ")"
@@ -260,6 +338,7 @@ public class MainPageController implements Initializable {
             + "|(?<SEMICOLON>" + SEMICOLON_PATTERN + ")"
             + "|(?<STRING>" + STRING_PATTERN + ")"
             + "|(?<COMMENT>" + COMMENT_PATTERN + ")"
+            + "|(?<TOSEARCH>" + tosearch + ")"
     );
 
 //    /**
@@ -274,7 +353,6 @@ public class MainPageController implements Initializable {
 //        }
 //
 //    }
-
 //    /**
 //     * en: This method reads all the documents in at one time. Using methods
 //     * such as readLine () requires repeated access to files, and every time
@@ -300,7 +378,6 @@ public class MainPageController implements Initializable {
 //        }
 //        return null;
 //    }
-
 //    /**
 //     * 使用了string builder,可参考
 //     *
@@ -323,5 +400,4 @@ public class MainPageController implements Initializable {
 //        bf.close();
 //        return sb.toString();
 //    }
-
 }
