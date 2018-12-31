@@ -11,12 +11,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
 
 <?import org.fxmisc.richtext.CodeArea?>
-<!--Button fx:id="zoomout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#zoomOut" prefHeight="25.0" prefWidth="81.0" stylesheets="@DarkMode.css" text=""-->
-<!--Button fx:id="zoomin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#zoomIn" prefHeight="25.0" prefWidth="81.0" stylesheets="@DarkMode.css" text=""-->
 
-<SplitPane dividerPositions="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Jeditor.MainPageController">
+<SplitPane fx:id="splitpane" dividerPositions="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Jeditor.MainPageController">
     <items>
         <BorderPane fx:id="editpane" styleClass="bg">
             <center>
@@ -30,7 +29,7 @@
                 </BorderPane>
             </center> 
             <top>
-                <HBox id="buttonpane" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="27.0" prefWidth="200.0" spacing="16.0" BorderPane.alignment="CENTER">
+                <HBox id="buttonpane" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="27.0" spacing="16.0" BorderPane.alignment="CENTER">
                     <children>
                         <Button fx:id="open" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openaction" prefHeight="21.0" prefWidth="81.0" stylesheets="@DarkMode.css" text="open">
                             <padding>
@@ -53,7 +52,7 @@
                                 <Insets bottom="2.0" />
                             </padding>
                         </Button>
-                        <Region maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="29.0" prefWidth="268.0" />
+                        <Region maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="29.0" prefWidth="10240.0" />
                         <TextField fx:id="input" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="160.0" styleClass="search" stylesheets="@DarkMode.css" />
                         <Button fx:id="search" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#findsearch" prefHeight="25.0" prefWidth="25.0" />
                         <Button fx:id="replace" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#findreplace" prefHeight="25.0" prefWidth="25.0" />
@@ -67,19 +66,19 @@
                 </HBox>
             </top>
             <bottom>
-                <HBox id="statuspane" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="16.0" prefWidth="200.0" spacing="16.0" style="-fx-background-color: darkgrey;" BorderPane.alignment="CENTER">
+                <HBox id="statuspane" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="18.0" spacing="16.0" style="-fx-background-color: darkgrey;" BorderPane.alignment="CENTER">
                     <padding>
                         <Insets left="16.0" right="16.0" />
                     </padding>
                     <children>
-                        <ChoiceBox fx:id="choosebox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#chooseMode" prefHeight="16.0" prefWidth="128.0" />
-                        <Hyperlink fx:id="githublink" alignment="TOP_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#visitgithub" prefHeight="16.0" prefWidth="162.0" text="Detail Visit My Github" textAlignment="CENTER" textFill="#170505" underline="true">
+                        <ChoiceBox fx:id="choosebox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#chooseMode" prefHeight="18.0" prefWidth="81.0" />
+                        <Hyperlink fx:id="githublink" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#visitgithub" prefHeight="16.0" prefWidth="130.0" text="Detail Visit My Github" textAlignment="CENTER" textFill="#66003a" underline="true">
                             <font>
-                                <Font size="9.0" />
+                                <Font name="System Italic" size="9.0" />
                             </font>
                         </Hyperlink>
                         <Region maxHeight="-Infinity" minHeight="-Infinity" prefHeight="21.0" />
-                        <Label fx:id="viewer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="160.0" text="ax" />
+                        <Label fx:id="viewer" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="392.0" text="Copyright© supported by blinderjay, all rights reserved" textAlignment="CENTER" />
                     </children>
                 </HBox>
             </bottom>
@@ -89,18 +88,8 @@
       
       
         <BorderPane visible="false">
-            <!--         <left>
-               <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="766.0" prefWidth="32.0" spacing="25.0" style="-fx-background-color: purple;" BorderPane.alignment="CENTER">
-                  <children>
-                     <Button maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0"  text="A" textFill="WHITE" />
-                     <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0"  text="B" textFill="WHITE" />
-                     <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0"  text="C" textFill="WHITE" />
-                     <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="32.0" text="D" textFill="WHITE" />
-                  </children>
-                  <padding>
-                     <Insets bottom="16.0" top="16.0" />
-                  </padding></VBox>
-            </left>-->
-        </BorderPane>
+         <center>
+            <WebView fx:id="webview" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center></BorderPane>
     </items>
 </SplitPane>

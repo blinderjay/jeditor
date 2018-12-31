@@ -3,6 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group/>
-        <group name="WorkStation"/>
+        <group name="WorkStation">
+            <file>file:/home/blinderjay/Projects/jeditor/Jeditor/src/Jeditor/MainPage.fxml</file>
+            <file>file:/home/blinderjay/Projects/jeditor/Jeditor/src/Jeditor/DarkMode.css</file>
+            <file>file:/home/blinderjay/Projects/jeditor/Jeditor/src/Jeditor/Jeditor.java</file>
+            <file>file:/home/blinderjay/Projects/jeditor/Jeditor/src/Jeditor/MainPageController.java</file>
+            <file>file:/home/blinderjay/Projects/jeditor/Jeditor/src/Jeditor/LightMode.css</file>
+        </group>
     </open-files>
 </project-private>

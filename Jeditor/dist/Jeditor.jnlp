@@ -10,7 +10,7 @@
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
     <jar href="lib/Jloader.jar" size="2797" download="progress" />
-    <jar href="Jeditor.jar" size="27189188" download="eager" />
+    <jar href="Jeditor.jar" size="27190211" download="eager" />
     <jar href="lib/flowless-0.6.1.jar" size="64817" download="eager" />
     <jar href="lib/reactfx-2.0-M5.jar" size="428541" download="eager" />
     <jar href="lib/richtextfx-0.9.2.jar" size="264539" download="eager" />

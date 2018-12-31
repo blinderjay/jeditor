@@ -24,11 +24,17 @@ and open the template in the editor.
 }
 
 #buttonpane{
-    -fx-background-color: rgba(170,170,170,120);
+    /*-fx-background-color: rgba(170,170,170,120);*/
+    -fx-background-color: transparent;
 }
 
 #statuspane{
-    -fx-background-color: #424242;
+    -fx-background-color: rgba(44,44,44,120);
+}
+
+
+#codearea {
+-fx-effect: dropshadow(two-pass-box, rgba(0,0,0,1), 25, 0, 0, 0);
 }
 
 /*
@@ -47,7 +53,7 @@ and open the template in the editor.
 
 .button{
     -fx-text-fill: "#FF8600";
-    -fx-background-color: #ffffff;
+    -fx-background-color: #424242;
     -fx-opacity: 0.75;
     -fx-font: bold 13.0px sans-serif;
     -fx-background-radius: 10;
@@ -63,7 +69,7 @@ and open the template in the editor.
 
 .search{
     -fx-text-fill: "#FF8600";
-    -fx-background-color: #ffffff;
+    -fx-background-color: #424242;
     -fx-font: bold 13.0px sans-serif;
     -fx-background-radius: 11;
      -fx-opacity: 0.75;
@@ -109,9 +115,7 @@ font-weight: normal;
 font-style: italic;
 }
 
-#codearea t{
--fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-}
+
 
 .paragraph-text .text{
     -fx-fill: #1F1F1F;
@@ -146,10 +150,9 @@ font-style: italic;
     -fx-fill: #49813E !important;
 }
 .tosearch{
-    -fx-fill: #ff0000 !important;
-    -fx-background-color: #00ff00 !important;    
-    -fx-display-caret:true;
-    -fx-highlight-fill :#00ff00 !important;
+ -fx-fill: #F1FF00 !important;
+    -fx-effect: dropshadow(two-pass-box, rgba(255,255,255,1), 15, 0, 0, 0);
+    
 }
 
 .paragraph-box:has-caret {

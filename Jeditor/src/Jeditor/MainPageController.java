@@ -33,15 +33,16 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.collections.FXCollections;
-import javafx.event.Event;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.Tooltip;
@@ -52,6 +53,9 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.fxmisc.richtext.CodeArea;
@@ -78,6 +82,10 @@ public class MainPageController implements Initializable {
     TextField input;
     @FXML
     ChoiceBox choosebox;
+    @FXML
+    WebView webview;
+    @FXML
+    SplitPane splitpane;
 
     private Jeditor editor;
     private Stage stage;
@@ -86,17 +94,18 @@ public class MainPageController implements Initializable {
     Charset charset = Charset.forName("UTF-8");
     private static final String sampleCode = String.join("\n", new String[]{"Hellow,World"});
     private static String tosearch = null;
-    private static int codesize = 15;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-                choosebox.setItems(FXCollections.observableArrayList(
-                "Dark",
+        choosebox.setItems(FXCollections.observableArrayList(
+                "Dark Mode",
                 new Separator(),
-                "Light")
+                "Light Mode")
         );
-choosebox.setTooltip(new Tooltip("Select the language"));
+        choosebox.setValue(choosebox.getItems().get(0));
+        choosebox.setStyle("-fx-font: bold 9.0  sans-serif;-fx-text-alignment: center;-fx-text-alignment: center;");
+        choosebox.setTooltip(new Tooltip("Select your Preferred Mode"));
         initCodearea();
         darkmode(new ActionEvent());
 //        InputStream is = getClass().getResourceAsStream("f29.png");
@@ -106,10 +115,12 @@ choosebox.setTooltip(new Tooltip("Select the language"));
 //                BackgroundRepeat.NO_REPEAT,
 //                BackgroundPosition.DEFAULT,
 //                BackgroundSize.DEFAULT);
-//        editpane.setBackground(new Background(myBI));
+//        editpane.setBackground(new Background(myBI)); 
 
-        search.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/Image/search.png"), 23, 23, true, true)));
-        replace.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/Image/replace.png"), 23, 23, true, true)));
+        search.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/Image/search.png"),
+                                                23, 23, true, true)));
+        replace.setGraphic(new ImageView(new Image(getClass().getResourceAsStream("/Image/replace.png"), 
+                                                23, 23, true, true)));
     }
 
     public void setEditor(Jeditor edt, Stage stage) {
@@ -164,16 +175,14 @@ choosebox.setTooltip(new Tooltip("Select the language"));
     @FXML
     private void chooseMode(ActionEvent event) {
 
-
- 
         choosebox.getSelectionModel().selectedIndexProperty().addListener((ov, oldv, newv) -> {
             switch (newv.intValue()) {
-                case 0:{
-                    darkmode(event);System.out.println("Dark");
+                case 0: {
+                    darkmode(event);
                     break;
                 }
-                case 2:{
-                    lightmode(event);System.out.println("Light");
+                case 2: {
+                    lightmode(event);
                     break;
                 }
             }
@@ -185,7 +194,7 @@ choosebox.setTooltip(new Tooltip("Select the language"));
     private void openaction(ActionEvent event) {
         codearea.clear();
         FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("Editable File", "*.*");
         fileChooser.getExtensionFilters().add(extFilter);
         file = fileChooser.showOpenDialog(stage);
         path = Paths.get(file.getPath());
@@ -215,23 +224,34 @@ choosebox.setTooltip(new Tooltip("Select the language"));
                 if (value.equals("to select")) {
                     saveasaction(event);
                 } else {
-                    TextInputDialog input = new TextInputDialog("/home/");
-                    input.setTitle("Create new file");
-                    input.setHeaderText("Please input the path and your filename you want to save your file");
-                    Optional<String> newpath = input.showAndWait();
-                    newpath.ifPresent(pathstring -> {
-                        try {
-                            Files.createFile(Paths.get(pathstring));
-                            savefile(Paths.get(pathstring), codearea.getText());
-                        } catch (FileAlreadyExistsException ex) {
-                            Alert alert = new Alert(AlertType.ERROR);
-                            alert.setTitle("File existed error");
-                            alert.setHeaderText("Fail to create new file since it's existence");
-                            alert.showAndWait();
-                        } catch (IOException ex) {
-                            Logger.getLogger(MainPageController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    });
+
+                    final DirectoryChooser directoryChooser = new DirectoryChooser();
+                    directoryChooser.setTitle("Select one Directories");
+                    directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+                    File dir = directoryChooser.showDialog(stage);
+                    if (dir != null) {
+                        TextInputDialog input = new TextInputDialog("Hellow.txt");
+                        input.setTitle("Create new file");
+                        input.setHeaderText("Please input the filename of the new file you want to create");
+                        Optional<String> filename = input.showAndWait();
+                        filename.ifPresent(namevalue -> {
+                            try {
+                                System.out.println(Paths.get(dir.getPath() + File.separator + namevalue));
+
+                                Files.createFile(Paths.get(dir.getPath() + File.separator + namevalue));
+                                savefile(Paths.get(namevalue), codearea.getText());
+                            } catch (FileAlreadyExistsException ex) {
+                                Alert alert = new Alert(AlertType.ERROR);
+                                alert.setTitle("File existed error");
+                                alert.setHeaderText("Fail to create new file since it's existence");
+                                alert.showAndWait();
+                            } catch (IOException ex) {
+                                Logger.getLogger(MainPageController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        });
+                    } else {
+                    }
+
                 }
             });
         }
@@ -257,12 +277,14 @@ choosebox.setTooltip(new Tooltip("Select the language"));
     private void darkmode(ActionEvent event) {
         codearea.setBackground(new Background(new BackgroundFill(Color.web("#232323", 0.64f), new CornerRadii(16), Insets.EMPTY)));
         //        codearea.setStyle(" -fx-font:   bold 14px sans-serif;");
+        editpane.getStylesheets().remove(getClass().getResource("LightMode.css").toExternalForm());
         editpane.getStylesheets().add(getClass().getResource("DarkMode.css").toExternalForm());
     }
 
     @FXML
     private void lightmode(ActionEvent event) {
-        codearea.setBackground(new Background(new BackgroundFill(Color.web("#AAAAAA", 0.64f), new CornerRadii(16), Insets.EMPTY)));
+        codearea.setBackground(new Background(new BackgroundFill(Color.web("#B9E8BA", 0.64f), new CornerRadii(16), Insets.EMPTY)));
+        editpane.getStylesheets().remove(getClass().getResource("DarkMode.css").toExternalForm());
         //        codearea.setStyle(" -fx-font:   bold 14px sans-serif;");
         editpane.getStylesheets().add(getClass().getResource("LightMode.css").toExternalForm());
 
@@ -280,7 +302,21 @@ choosebox.setTooltip(new Tooltip("Select the language"));
 
     @FXML
     private void visitgithub(ActionEvent event) throws URISyntaxException, IOException {
-        Desktop.getDesktop().browse(new URI("https://github.com/blinderjay/jeditor"));
+        try {
+            Desktop.getDesktop().browse(new URI("https://github.com/blinderjay/jeditor"));
+        } catch (Exception e) {
+            /*never happened :success or crashed*/
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Fail to Open Local Browster");
+            alert.setHeaderText("Would you like to open the webview controlor?");
+
+            Optional<ButtonType> value = alert.showAndWait();
+            if (value.get() == ButtonType.OK) {
+                splitpane.setDividerPositions(0.2);
+                WebEngine eng = webview.getEngine();
+                eng.load("https://github.com/blinderjay/jeditor");
+            }
+        }
     }
 
     private static StyleSpans<Collection<String>> computeHighlighting(String text) {

@@ -29,7 +29,8 @@ font-size和font-family的值是必需的。如果缺少了其他值，默认值
 }
 
 #buttonpane{
-        -fx-background-color: #424242;
+/*        -fx-background-color: #424242;*/
+-fx-background-color: transparent;
 }
 
 #statuspane{
@@ -37,7 +38,7 @@ font-size和font-family的值是必需的。如果缺少了其他值，默认值
 }
 
 #codearea {
--fx-effect: dropshadow(two-pass-box, rgba(255,255,255,0.8), 10, 0, 0, 0);
+-fx-effect: dropshadow(two-pass-box, rgba(255,255,255,1), 25, 0, 0, 0);
 }
 
 
@@ -121,7 +122,7 @@ font-style: italic;
 
 
 .paragraph-text .text{
-    -fx-fill: #cccccc;
+    -fx-fill: #cccccc ;
     -fx-font: normal bold 15px/32px  "Menlo for Powerline";
 }
 
@@ -153,10 +154,9 @@ font-style: italic;
     -fx-fill: #49813E !important;
 }
 .tosearch{
-    -fx-fill: #ff0000 !important;
-    -fx-background-color: #00ff00 !important;    
-    -fx-display-caret:true;
-    -fx-highlight-fill :#00ff00 !important;
+    -fx-fill: #F1FF00 !important;
+    -fx-effect: dropshadow(two-pass-box, rgba(255,255,255,1), 15, 0, 0, 0);
+    
 }
 
 .paragraph-box:has-caret {

@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.application.Application;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
@@ -42,7 +43,8 @@ public class Jeditor extends Application {
         
        //        Parent root = FXMLLoader.load(getClass().getResource("MainPage.fxml"));
         Scene scene = new Scene(root);
-        
+        stage.setTitle("Jeditor : an open, free editor highly customizable");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/Image/LinuxFamily1.png")));
         stage.setScene(scene);
         stage.show();
     }
