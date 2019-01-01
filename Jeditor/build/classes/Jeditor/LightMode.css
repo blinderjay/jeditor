@@ -8,7 +8,9 @@ and open the template in the editor.
     Author     : blinderjay
 */
 
-
+.caret {
+    -fx-stroke: #000000;
+}
 
 .bg{
 /*  -fx-border-color: darkgrey;

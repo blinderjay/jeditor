@@ -19,12 +19,12 @@
     <items>
         <BorderPane fx:id="editpane" styleClass="bg">
             <center>
-                <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                <BorderPane maxWidth="-Infinity" prefHeight="200.0" prefWidth="10240.0" BorderPane.alignment="CENTER">
                     <center>
                     <CodeArea fx:id="codearea"  id="codearea"/>
                     </center>
                     <padding>
-                        <Insets bottom="8" left="8" right="8" top="9" />
+                        <Insets bottom="9.0" left="9.0" right="9.0" top="12.0" />
                     </padding>
                 </BorderPane>
             </center> 
@@ -52,10 +52,19 @@
                                 <Insets bottom="2.0" />
                             </padding>
                         </Button>
-                        <Region maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="29.0" prefWidth="10240.0" />
-                        <TextField fx:id="input" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="160.0" styleClass="search" stylesheets="@DarkMode.css" />
-                        <Button fx:id="search" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#findsearch" prefHeight="25.0" prefWidth="25.0" />
-                        <Button fx:id="replace" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#findreplace" prefHeight="25.0" prefWidth="25.0" />
+                        <Region maxHeight="-Infinity" minHeight="-Infinity" minWidth="5.0" prefHeight="29.0" prefWidth="10240.0" />
+                        <TextField fx:id="input" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="160.0" styleClass="search" stylesheets="@DarkMode.css">
+                     <padding>
+                        <Insets bottom="2.0" />
+                     </padding></TextField>
+                        <Button fx:id="search" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#findsearch" prefHeight="25.0" prefWidth="25.0">
+                     <padding>
+                        <Insets bottom="2.0" />
+                     </padding></Button>
+                        <Button fx:id="replace" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#findreplace" prefHeight="25.0" prefWidth="25.0">
+                     <padding>
+                        <Insets bottom="2.0" />
+                     </padding></Button>
                     </children>
                     <opaqueInsets>
                         <Insets />
@@ -72,9 +81,9 @@
                     </padding>
                     <children>
                         <ChoiceBox fx:id="choosebox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#chooseMode" prefHeight="18.0" prefWidth="81.0" />
-                        <Hyperlink fx:id="githublink" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#visitgithub" prefHeight="16.0" prefWidth="130.0" text="Detail Visit My Github" textAlignment="CENTER" textFill="#66003a" underline="true">
+                        <Hyperlink fx:id="githublink" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#visitgithub" prefHeight="16.0" prefWidth="145.0" text="Detail consult readme file" textAlignment="CENTER" textFill="#66003a" underline="true">
                             <font>
-                                <Font name="System Italic" size="9.0" />
+                                <Font name="System Bold" size="9.0" />
                             </font>
                         </Hyperlink>
                         <Region maxHeight="-Infinity" minHeight="-Infinity" prefHeight="21.0" />
@@ -87,9 +96,10 @@
         </BorderPane>
       
       
-        <BorderPane visible="false">
+        <BorderPane fx:id="webpane" maxWidth="0" minWidth="0">
          <center>
-            <WebView fx:id="webview" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </center></BorderPane>
+            <WebView fx:id="webview" BorderPane.alignment="CENTER" />
+         </center>
+        </BorderPane>
     </items>
 </SplitPane>

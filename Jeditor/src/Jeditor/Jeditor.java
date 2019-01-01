@@ -12,6 +12,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 import javafx.application.Application;
+import javafx.application.Preloader;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.concurrent.Task;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -25,10 +29,11 @@ import javafx.stage.Stage;
 public class Jeditor extends Application {
     Parent root; 
     static Path path=null;   // //non-static variable path cannot be referenced from a static context ( return from Paths.get() methods)
-      
-    
+ 
     @Override
     public void start(Stage stage) throws Exception {
+ 
+        
         FXMLLoader loader = new FXMLLoader();
         loader.setBuilderFactory(new JavaFXBuilderFactory());
         loader.setLocation(Jeditor.class.getResource("MainPage.fxml"));
@@ -43,8 +48,11 @@ public class Jeditor extends Application {
         
        //        Parent root = FXMLLoader.load(getClass().getResource("MainPage.fxml"));
         Scene scene = new Scene(root);
+        
+        stage.setWidth(1200);
+        stage.setHeight(900);
         stage.setTitle("Jeditor : an open, free editor highly customizable");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/Image/LinuxFamily1.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/Image/Jeditor.png")));
         stage.setScene(scene);
         stage.show();
     }
@@ -57,8 +65,8 @@ public class Jeditor extends Application {
         }catch(ArrayIndexOutOfBoundsException e){
             
         }
-
-       
+        
+        
         launch(args);
     }
      

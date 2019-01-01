@@ -5,12 +5,10 @@
  */
 package Jeditor;
 
-import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -75,7 +73,7 @@ public class MainPageController implements Initializable {
     @FXML
     CodeArea codearea;
     @FXML
-    BorderPane editpane;
+    BorderPane editpane,webpane;
     @FXML
     Label viewer;
     @FXML
@@ -93,7 +91,7 @@ public class MainPageController implements Initializable {
     private File file = null;
     Charset charset = Charset.forName("UTF-8");
     private static final String sampleCode = String.join("\n", new String[]{"Hellow,World"});
-    private static String tosearch = null;
+    private static String tosearch = "";
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -206,7 +204,6 @@ public class MainPageController implements Initializable {
                 codearea.appendText(context + "\n");
             }
         } catch (IOException io) {
-
         }
     }
 
@@ -236,10 +233,11 @@ public class MainPageController implements Initializable {
                         Optional<String> filename = input.showAndWait();
                         filename.ifPresent(namevalue -> {
                             try {
-                                System.out.println(Paths.get(dir.getPath() + File.separator + namevalue));
+                                path = Paths.get(dir.getPath() + File.separator + namevalue);
+                                System.out.println(path);
 
-                                Files.createFile(Paths.get(dir.getPath() + File.separator + namevalue));
-                                savefile(Paths.get(namevalue), codearea.getText());
+                                Files.createFile(path);
+                                savefile(path, codearea.getText());
                             } catch (FileAlreadyExistsException ex) {
                                 Alert alert = new Alert(AlertType.ERROR);
                                 alert.setTitle("File existed error");
@@ -276,7 +274,6 @@ public class MainPageController implements Initializable {
     @FXML
     private void darkmode(ActionEvent event) {
         codearea.setBackground(new Background(new BackgroundFill(Color.web("#232323", 0.64f), new CornerRadii(16), Insets.EMPTY)));
-        //        codearea.setStyle(" -fx-font:   bold 14px sans-serif;");
         editpane.getStylesheets().remove(getClass().getResource("LightMode.css").toExternalForm());
         editpane.getStylesheets().add(getClass().getResource("DarkMode.css").toExternalForm());
     }
@@ -285,7 +282,6 @@ public class MainPageController implements Initializable {
     private void lightmode(ActionEvent event) {
         codearea.setBackground(new Background(new BackgroundFill(Color.web("#B9E8BA", 0.64f), new CornerRadii(16), Insets.EMPTY)));
         editpane.getStylesheets().remove(getClass().getResource("DarkMode.css").toExternalForm());
-        //        codearea.setStyle(" -fx-font:   bold 14px sans-serif;");
         editpane.getStylesheets().add(getClass().getResource("LightMode.css").toExternalForm());
 
     }
@@ -302,9 +298,10 @@ public class MainPageController implements Initializable {
 
     @FXML
     private void visitgithub(ActionEvent event) throws URISyntaxException, IOException {
-        try {
-            Desktop.getDesktop().browse(new URI("https://github.com/blinderjay/jeditor"));
-        } catch (Exception e) {
+//        try {
+//            Desktop.getDesktop().browse(new URI("https://github.com/blinderjay/jeditor"));
+//        } catch (Exception e) 
+        {
             /*never happened :success or crashed*/
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Fail to Open Local Browster");
@@ -312,9 +309,12 @@ public class MainPageController implements Initializable {
 
             Optional<ButtonType> value = alert.showAndWait();
             if (value.get() == ButtonType.OK) {
-                splitpane.setDividerPositions(0.2);
+                stage.setWidth(1536);
+                stage.centerOnScreen();
+                webpane.setMaxWidth(1024);
+                splitpane.setDividerPositions(0.6);
                 WebEngine eng = webview.getEngine();
-                eng.load("https://github.com/blinderjay/jeditor");
+                eng.load(getClass().getResource("readme.html").toString());
             }
         }
     }

@@ -9,8 +9,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="lib/Jloader.jar" size="2797" download="progress" />
-    <jar href="Jeditor.jar" size="27190211" download="eager" />
+    <jar href="Jeditor.jar" size="16444199" download="eager" />
     <jar href="lib/flowless-0.6.1.jar" size="64817" download="eager" />
     <jar href="lib/reactfx-2.0-M5.jar" size="428541" download="eager" />
     <jar href="lib/richtextfx-0.9.2.jar" size="264539" download="eager" />
@@ -21,6 +20,6 @@
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Jeditor" >
     <param name="requiredFXVersion" value="8.0+"/>
   </applet-desc>
-  <jfx:javafx-desc  width="800" height="600" main-class="Jeditor.Jeditor"  name="Jeditor"  preloader-class="jloader.Jloader"/>
+  <jfx:javafx-desc  width="800" height="600" main-class="Jeditor.Jeditor"  name="Jeditor" />
   <update check="always"/>
 </jnlp>

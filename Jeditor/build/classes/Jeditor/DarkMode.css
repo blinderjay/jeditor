@@ -15,7 +15,15 @@ and open the template in the editor.
 
 font-size和font-family的值是必需的。如果缺少了其他值，默认值将被插入，如果有默认值的话*/
 
+/*https://github.com/FXMisc/RichTextFX.wiki.git*/
 
+
+.caret {
+    -fx-stroke: #ffffff;
+     -fx-blink-caret-rate: 100ms;
+     -fx-highlight-fill:  #ff0000 ;
+         /*-fx-highlight-fill: derive(#ff0000, 50%)*/
+}
 
 .bg{
   -fx-border-color: darkgrey;
@@ -33,12 +41,14 @@ font-size和font-family的值是必需的。如果缺少了其他值，默认值
 -fx-background-color: transparent;
 }
 
-#statuspane{
+#statuspane {
     -fx-background-color: rgba(170,170,170,120);
 }
 
 #codearea {
 -fx-effect: dropshadow(two-pass-box, rgba(255,255,255,1), 25, 0, 0, 0);
+;
+
 }
 
 
