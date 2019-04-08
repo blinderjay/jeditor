@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<SplitPane fx:id="splitpane" dividerPositions="1.0" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Jeditor.MainPageController">
+    <items>
+
+        <StackPane fx:id="editpane" prefHeight="150.0" prefWidth="200.0" styleClass="trans" BorderPane.alignment="CENTER">
+            <children>
+                <SplitPane dividerPositions="0.9949748743718593" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" styleClass="trans">
+                    <items>
+                        <BorderPane fx:id="codepane" maxWidth="-Infinity" prefHeight="200.0" prefWidth="10240.0" BorderPane.alignment="CENTER">
+ 
+                        </BorderPane>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                    </items>
+                </SplitPane>
+                <ToggleButton fx:id="slider" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="32.0" prefWidth="25.0" style="-fx-background-color: rgba(0,0,0,0);" StackPane.alignment="CENTER_RIGHT">
+                    <StackPane.margin>
+                        <Insets bottom="49.0" right="10.0" />
+                    </StackPane.margin>
+                </ToggleButton>
+                <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="160.0" StackPane.alignment="TOP_RIGHT">
+                    <StackPane.margin>
+                        <Insets right="16.0" top="12.0" />
+                    </StackPane.margin>
+               <children>
+                  <Button mnemonicParsing="false" prefWidth="49.0" text="D" />
+                  
+                 
+                      <ToggleButton mnemonicParsing="false" prefHeight="32.0" prefWidth="54.0" text="F" />
+                  <Button mnemonicParsing="false" prefWidth="49.0" text="S" />
+               </children>
+                </HBox>
+            </children>
+        </StackPane>
+        
+        
+        <SplitPane fx:id="funcpane" dividerPositions="0.5" minWidth="0.0" orientation="VERTICAL" prefWidth="0">
+            <items>
+                <VBox fx:id="menupane">
+                    <children>
+                        <Button fx:id="open" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openaction" prefHeight="27.0" prefWidth="81.0" text="open" />
+                        <Button fx:id="saveit" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveitaction" prefHeight="27.0" prefWidth="81.0" text="save it" />
+                        <Button fx:id="saveas" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveasaction" prefHeight="27.0" prefWidth="81.0" text="save as" />          
+                        <Button fx:id="gentime" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#genTime" prefHeight="27.0" prefWidth="81.0" text="time/C+T" />
+                        <TextField fx:id="input" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="27.0" prefWidth="160.0" styleClass="search" text="input keywords">
+                        </TextField>
+                        <Button fx:id="search" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#findsearch" prefHeight="25.0" prefWidth="25.0" />
+                        <Button fx:id="replace" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#findreplace" prefHeight="25.0" prefWidth="25.0" />
+                        <Hyperlink fx:id="githublink" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#visitgithub" prefHeight="25.0" prefWidth="145.0" text="Detail consult readme file" textAlignment="CENTER" textFill="#66003a" underline="true">
+                        </Hyperlink>
+                        <Label fx:id="viewer" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="100.0" text="Copyright© supported by blinderjay, all rights reserved" textAlignment="CENTER" />
+                        <ChoiceBox fx:id="choosebox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" onAction="#chooseMode" prefHeight="18.0" prefWidth="81.0" />
+                        <TreeView fx:id="treelist"  minWidth="0"  prefHeight="798.0" prefWidth="0.0" />
+                    </children>
+                </VBox>
+                <BorderPane fx:id="consolepane" >
+                </BorderPane>
+            </items>
+        </SplitPane>
+             
+    </items>
+    <styleClass>
+        <String fx:value="bg" />
+        <String fx:value="trans" />
+    </styleClass>
+</SplitPane>

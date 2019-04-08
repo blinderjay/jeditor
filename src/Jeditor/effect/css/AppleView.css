@@ -1,0 +1,137 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jan 23, 2019, 6:55:16 PM
+    Author     : blinderjay
+*/
+
+.split-pane {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.split-pane-divider{
+    -fx-background-color: rgb(41,41,41);
+    -fx-background-insets: 0 0 0 0;
+    -fx-padding: 0 0 0 0;
+    -fx-border-color: null;
+}
+
+.content-pane{
+    -fx-background-color: rgb(224,228,234);
+}
+.alt-content-pane{
+    -fx-background-color: linear-gradient(rgb(239,239,239) 0%, rgb(198,198,198) 100%);
+}
+
+.console{
+    -fx-font-family: Monospace;
+    -fx-text-fill: black;
+    -fx-background-insets: 0px;
+    -fx-background-radius: 0px;
+}
+
+.console .scroll-pane .content{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.console-hooked {
+    -fx-text-fill: greenyellow;
+}
+
+.console-hooked .scroll-pane .content{
+    -fx-background-color: #333333;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Labels                                                                      *
+ *                                                                             *
+ ******************************************************************************/
+.title-label{
+    -fx-font-size: 1.5em;
+}
+.section-title-label{
+    -fx-font-size: 1.2em;
+    -fx-text-fill: -fx-text-base-color;
+}
+
+.key-label{
+    -fx-font-size: 0.9em;
+    -fx-text-fill: rgb(120,109,109);
+    -fx-font-weight: bold;
+}
+
+.value-label{
+    -fx-font-size: 1.0em;
+    -fx-font-weight: bold;
+}
+
+
+/*******************************************************************************
+ *                                                                             *
+ * Buttons                                                               *
+ *                                                                             *
+ ******************************************************************************/
+.navigation-button{
+    -fx-text-fill: linear-gradient(to bottom, derive( -fx-accent, 40% ) 0%, derive( -fx-accent, -20% ) 100%); 
+    -fx-font-size: 1em;
+    -fx-font-weight: bold;
+    -fx-background-color: transparent;
+    -fx-graphic-text-gap: 4px;
+    -icons-color:  -navigation-button-icons-color;
+    -fx-padding: 3px 5px 3px 5px;
+}
+
+.navigation-button:pressed{
+    -fx-background-color: transparent;
+    -fx-effect: innershadow( three-pass-box, rgba(0,0,0,0.5), 1, 0.0 , 1, 1 );
+}
+
+.navigation-button:hover{
+    -fx-effect:  dropshadow(three-pass-box, rgba(0,0,0,0.2), 4, 0, 0, 0);
+}
+
+.navigation-menu-button{
+    -fx-background-color: transparent;
+}
+.navigation-menu-button .label{
+    -fx-padding: 5 1 5 5;
+    
+}
+
+
+/*******************************************************************************
+ *                                                                             *
+ * Refuel Items ListCell                                                           *
+ *                                                                             *
+ ******************************************************************************/
+.refuel-item-list-cell{
+    -fx-font-weight: normal;
+    -fx-background-color: null;
+    -fx-text-fill: -fx-text-base-color;
+}
+
+.refuel-item-list-cell:filled:selected:focused, .refuel-item-list-cell:filled:selected {
+    -fx-font-weight: normal;
+    -fx-background-color: null;
+    -fx-text-fill: -fx-text-base-color;
+}
+
+.refuel-item-list-cell:hover {
+    -fx-font-weight: normal;
+    -fx-background-color: null;
+}
+
+.refuel-item-list-cell:odd, .refuel-item-list-cell:odd:selected {
+    -fx-font-weight: normal;
+    -fx-background-color: null;
+}
+
+.refuel-item-list-cell:empty{
+    -fx-background-color: null;
+}
