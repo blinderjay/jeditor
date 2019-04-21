@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/oraclejdk 10"/>
+	<classpathentry kind="lib" path="lib/wellbehavedfx-0.3.3.jar"/>
+	<classpathentry kind="lib" path="lib/undofx-2.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/richtextfx-0.9.2.jar"/>
+	<classpathentry kind="lib" path="lib/reactfx-2.0-M5.jar"/>
+	<classpathentry kind="lib" path="lib/jna-5.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/flowless-0.6.1.jar"/>
+	<classpathentry kind="output" path="build"/>
+</classpath>
