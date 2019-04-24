@@ -15,8 +15,8 @@ package de.jensd.fx.glyphs.fontawesome;
 
 import de.jensd.fx.glyphs.GlyphIcon;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 import javafx.scene.text.Font;
 
 /**
@@ -31,7 +31,7 @@ public class FontAwesomeIconView extends GlyphIcon<FontAwesomeIcon> {
         try {
             Font.loadFont(FontAwesomeIconView.class.getResource(TTF_PATH).openStream(), 10.0d);
         } catch (IOException ex) {
-            Logger.getLogger(FontAwesomeIconView.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(FontAwesomeIconView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

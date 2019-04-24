@@ -23,8 +23,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -169,7 +169,7 @@ public abstract class GlyphIcon<T extends Enum<T> & GlyphIcons> extends Text {
             icon = Enum.valueOf(typeOfT, getGlyphName());
         } catch (Exception e) {
             String msg = String.format("Icon '%s' not found. Using '%s' (default) instead", getGlyphName(), getDefaultGlyph());
-            Logger.getLogger(GlyphIcon.class.getName()).log(Level.SEVERE, msg);
+//            Logger.getLogger(GlyphIcon.class.getName()).log(Level.SEVERE, msg);
         }
         setText(icon.unicode());
     }

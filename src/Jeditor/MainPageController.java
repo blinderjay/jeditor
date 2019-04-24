@@ -29,8 +29,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.animation.Interpolator;
@@ -361,7 +359,7 @@ public class MainPageController implements Initializable {
                                 alert.setHeaderText("Fail to create new file since it's existence");
                                 alert.showAndWait();
                             } catch (IOException ex) {
-                                Logger.getLogger(MainPageController.class.getName()).log(Level.SEVERE, null, ex);
+//                                Logger.getLogger(MainPageController.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         });
                     } else {
